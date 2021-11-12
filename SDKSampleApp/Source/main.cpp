@@ -28,17 +28,16 @@
 #include <codecvt>
 #define VIVOX_USE_SDK_BROWSER 1
 
-
 #include "SDKSampleApp.h"
 #include "getopt.h"
 #include "vxplatform/vxcplatformmain.h"
 #include "vxplatform/vxcplatform.h"
 #include <VxcRequests.h>
 
-# include <windows.h>
-# include "TestUDPFrameCallbacks.h"
-# include <io.h> // for _setmode
-# include <fcntl.h> // for _O_U16TEXT
+#include <windows.h>
+#include "TestUDPFrameCallbacks.h"
+#include <io.h>    // for _setmode
+#include <fcntl.h> // for _O_U16TEXT
 
 #include <string.h>
 #include <stdarg.h>
@@ -49,16 +48,14 @@
 #include "SDKBrowserWin.h"
 #endif
 
-
 #include "ParanoidAllocator.h"
-
 
 #define snprintf _snprintf
 #define sscanf sscanf_s
 
 using namespace std;
 
-# define SYS_APP_HOME ""
+#define SYS_APP_HOME ""
 
 #ifndef SCE_OK
 #define SCE_OK 0
@@ -74,46 +71,53 @@ static std::string handleSpecialCharacters(const std::string &s)
 {
     std::deque<char> items;
 
-    for (size_t i = 0; i < s.size(); ++i) {
-        if (s.at(i) == 8) {
+    for (size_t i = 0; i < s.size(); ++i)
+    {
+        if (s.at(i) == 8)
+        {
             // control h;
-            if (!items.empty()) {
+            if (!items.empty())
+            {
                 items.pop_back();
             }
-        } else if (s.at(i) == 3) {
+        }
+        else if (s.at(i) == 3)
+        {
             // control c
             return "";
-        } else {
+        }
+        else
+        {
             items.push_back(s.at(i));
         }
     }
 
     std::string tmp;
-    for (size_t i = 0; i < items.size(); ++i) {
+    for (size_t i = 0; i < items.size(); ++i)
+    {
         tmp.push_back(items.at(i));
     }
     return tmp;
 }
 
-
-
 const char *GetLogLevelName(vx_log_level level)
 {
-    switch (level) {
-        case log_error:
-            return "ERROR";
-        case log_warning:
-            return "WARNING";
-        case log_info:
-            return "INFO";
-        case log_debug:
-            return "DEBUG";
-        case log_trace:
-            return "TRACE";
-        case log_all:
-            return "ALL";
-        case log_none:
-            return "NONE";
+    switch (level)
+    {
+    case log_error:
+        return "ERROR";
+    case log_warning:
+        return "WARNING";
+    case log_info:
+        return "INFO";
+    case log_debug:
+        return "DEBUG";
+    case log_trace:
+        return "TRACE";
+    case log_all:
+        return "ALL";
+    case log_none:
+        return "NONE";
     }
     return "???";
 }
@@ -124,7 +128,7 @@ static FILE *s_pLogFile = NULL;
 void (*g_sdk_sampleapp_log_callback)(const char *level, const char *source, const char *message) = NULL;
 bool (*g_sdk_sampleapp_getline_callback)(std::string &line) = NULL;
 // *INDENT-OFF*
-int (ATTRIBUTE_FORMAT(printf, 1, 0) *g_printf_wrapper)(const char *format, const va_list &vl) = NULL;
+int(ATTRIBUTE_FORMAT(printf, 1, 0) * g_printf_wrapper)(const char *format, const va_list &vl) = NULL;
 // *INDENT-ON*
 void (*g_sdk_sampleapp_exit)() = NULL;
 
@@ -137,7 +141,8 @@ void cbExit()
 
 bool OpenLogFile()
 {
-    if (s_pLogFile || s_logFileName.empty()) {
+    if (s_pLogFile || s_logFileName.empty())
+    {
         return true;
     }
     s_pLogFile = fopen(s_logFileName.c_str(), "w");
@@ -149,7 +154,8 @@ void OnLog(void *callback_handle, vx_log_level level, const char *source, const 
     (void)callback_handle;
 
     OpenLogFile();
-    if (s_pLogFile) {
+    if (s_pLogFile)
+    {
         time_t currentTime;
         currentTime = time(NULL);
         struct tm tmCurrent;
@@ -161,22 +167,27 @@ void OnLog(void *callback_handle, vx_log_level level, const char *source, const 
         ptm = gmtime_s(&tmCurrent, &currentTime) ? nullptr : &tmCurrent;
 #endif
         char aBuf[128];
-        if (ptm) {
+        if (ptm)
+        {
             strftime(aBuf, sizeof(aBuf), "%Y-%m-%d %H:%M:%S", ptm);
-        } else {
+        }
+        else
+        {
             aBuf[0] = 0;
         }
         fprintf(s_pLogFile, "%s %-7s : %s : %s\n", aBuf, GetLogLevelName(level), source, message);
         fflush(s_pLogFile);
     }
-    if (g_sdk_sampleapp_log_callback) {
+    if (g_sdk_sampleapp_log_callback)
+    {
         g_sdk_sampleapp_log_callback(GetLogLevelName(level), source, message);
     }
 }
 
 void CloseLog()
 {
-    if (s_pLogFile) {
+    if (s_pLogFile)
+    {
         fclose(s_pLogFile);
         s_pLogFile = NULL;
     }
@@ -225,21 +236,36 @@ int usage()
 
 bool parse_log_level(const char *log_level_name, vx_log_level &log_level)
 {
-    if (0 == stricmp(log_level_name, "none")) {
+    if (0 == stricmp(log_level_name, "none"))
+    {
         log_level = log_none;
-    } else if (0 == stricmp(log_level_name, "error")) {
+    }
+    else if (0 == stricmp(log_level_name, "error"))
+    {
         log_level = log_error;
-    } else if (0 == stricmp(log_level_name, "warning")) {
+    }
+    else if (0 == stricmp(log_level_name, "warning"))
+    {
         log_level = log_warning;
-    } else if (0 == stricmp(log_level_name, "info")) {
+    }
+    else if (0 == stricmp(log_level_name, "info"))
+    {
         log_level = log_info;
-    } else if (0 == stricmp(log_level_name, "debug")) {
+    }
+    else if (0 == stricmp(log_level_name, "debug"))
+    {
         log_level = log_debug;
-    } else if (0 == stricmp(log_level_name, "trace")) {
+    }
+    else if (0 == stricmp(log_level_name, "trace"))
+    {
         log_level = log_trace;
-    } else if (0 == stricmp(log_level_name, "all")) {
+    }
+    else if (0 == stricmp(log_level_name, "all"))
+    {
         log_level = log_all;
-    } else {
+    }
+    else
+    {
         log_level = log_error; // default
         return false;
     }
@@ -248,7 +274,8 @@ bool parse_log_level(const char *log_level_name, vx_log_level &log_level)
 
 static inline void trim(string &s)
 {
-    if (s.empty()) {
+    if (s.empty())
+    {
         return;
     }
 
@@ -257,13 +284,15 @@ static inline void trim(string &s)
 
     // trim left
     size_t pos = s.find_first_not_of(whitespace);
-    if (string::npos != pos) {
+    if (string::npos != pos)
+    {
         s = s.substr(pos);
     }
 
     // trim right
     pos = s.find_last_not_of(whitespace) + 1;
-    if (string::npos != pos) {
+    if (string::npos != pos)
+    {
         s = s.substr(0, pos);
     }
 }
@@ -272,34 +301,43 @@ static std::string GetCodecsInfoString(unsigned int codecs_mask)
 {
     std::stringstream ss;
 
-    struct CodecName {
+    struct CodecName
+    {
         unsigned int flag;
         const char *name;
     } codec_names[] = {
-        { VIVOX_VANI_PCMU, "PCMU" },
-        { VIVOX_VANI_SIREN7, "Siren7" },
-        { VIVOX_VANI_SIREN14, "Siren14" },
-        { VIVOX_VANI_OPUS8, "Opus8" },
-        { VIVOX_VANI_OPUS40, "Opus40" },
-        { VIVOX_VANI_OPUS57, "Opus57" },
-        { VIVOX_VANI_OPUS72, "Opus72" },
+        {VIVOX_VANI_PCMU, "PCMU"},
+        {VIVOX_VANI_SIREN7, "Siren7"},
+        {VIVOX_VANI_SIREN14, "Siren14"},
+        {VIVOX_VANI_OPUS8, "Opus8"},
+        {VIVOX_VANI_OPUS40, "Opus40"},
+        {VIVOX_VANI_OPUS57, "Opus57"},
+        {VIVOX_VANI_OPUS72, "Opus72"},
     };
 
     ss << vxplatform::string_format("Default codecs mask %u (0x%02x)", codecs_mask, codecs_mask);
-    if (0 != codecs_mask) {
+    if (0 != codecs_mask)
+    {
         ss << ": ";
         const char *separator = "";
-        for (unsigned int codec = 1; codec != 0; codec <<= 1) {
-            if (codec & codecs_mask) {
+        for (unsigned int codec = 1; codec != 0; codec <<= 1)
+        {
+            if (codec & codecs_mask)
+            {
                 int i;
-                for (i = 0; i < sizeof(codec_names) / sizeof(codec_names[0]); i++) {
-                    if (codec_names[i].flag == codec) {
+                for (i = 0; i < sizeof(codec_names) / sizeof(codec_names[0]); i++)
+                {
+                    if (codec_names[i].flag == codec)
+                    {
                         break;
                     }
                 }
-                if (i < sizeof(codec_names) / sizeof(codec_names[0])) {
+                if (i < sizeof(codec_names) / sizeof(codec_names[0]))
+                {
                     ss << separator << codec_names[i].name;
-                } else {
+                }
+                else
+                {
                     ss << vxplatform::string_format("%s0x%02x", separator, codec);
                 }
                 separator = ", ";
@@ -332,47 +370,56 @@ static vx_sdk_config_t MakeConfig(const SDKSampleApp &app, unsigned int default_
     memcpy(config.app_id, THIS_APP_UNIQUE_3_LETTERS_USER_AGENT_ID_STRING, sizeof(config.app_id));
 #endif
     config.default_codecs_mask = default_codecs_mask;
-    if (app.GetNeverRtpTimeout() >= 0) {
+    if (app.GetNeverRtpTimeout() >= 0)
+    {
         config.never_rtp_timeout_ms = app.GetNeverRtpTimeout();
     }
-    if (app.GetLostRtpTimeout() >= 0) {
+    if (app.GetLostRtpTimeout() >= 0)
+    {
         config.lost_rtp_timeout_ms = app.GetLostRtpTimeout();
     }
 
-    if (config.never_rtp_timeout_ms <= 0) {
+    if (config.never_rtp_timeout_ms <= 0)
+    {
         app.con_print("Never RTP timeout DISABLED. Prelogin can override this.\n");
-    } else {
+    }
+    else
+    {
         app.con_print("Never RTP timeout: %d ms. Prelogin can override this.\n", config.never_rtp_timeout_ms);
     }
-    if (config.lost_rtp_timeout_ms <= 0) {
+    if (config.lost_rtp_timeout_ms <= 0)
+    {
         app.con_print("Lost RTP timeout DISABLED. Prelogin can override this.\n");
-    } else {
+    }
+    else
+    {
         app.con_print("Lost RTP timeout: %d ms. Prelogin can override this.\n", config.lost_rtp_timeout_ms);
     }
 
-    if (app.GetProcessorAffinityMask() != 0) {
+    if (app.GetProcessorAffinityMask() != 0)
+    {
         config.processor_affinity_mask = app.GetProcessorAffinityMask();
     }
 
     return config;
 }
 
-
 int main_proc(int argc, char *argv[], string cmdList[])
 {
     UINT consoleOutputCP = GetConsoleOutputCP();
-    if (consoleOutputCP != CP_UTF8) {
+    if (consoleOutputCP != CP_UTF8)
+    {
         SetConsoleOutputCP(CP_UTF8);
     }
     UINT consoleCP = GetConsoleCP();
-    if (consoleCP != CP_UTF8) {
+    if (consoleCP != CP_UTF8)
+    {
         SetConsoleCP(CP_UTF8);
     }
     _setmode(_fileno(stdin), _O_U16TEXT);
     _setmode(_fileno(stdout), _O_U16TEXT);
 
     ParanoidAllocator::GetInstance().SetOutputFunction(&SDKSampleApp::con_print);
-
 
     SDKSampleApp app(g_printf_wrapper, (g_sdk_sampleapp_exit == NULL) ? cbExit : g_sdk_sampleapp_exit);
     vx_log_level log_level = log_error;
@@ -392,171 +439,182 @@ int main_proc(int argc, char *argv[], string cmdList[])
 
     app.con_print("%s", SDKSampleApp::getVersionAndCopyrightText().c_str());
 
-    while (1) {
+    while (1)
+    {
         static struct option long_options[] =
         {
             /* options are distinguished by index. */
-            { "server",      REQUIRED_ARG, 0, 's' },
-            { "realm",       REQUIRED_ARG, 0, 'r' },
-            { "issuer",      REQUIRED_ARG, 0, 'i' },
-            { "key",         REQUIRED_ARG, 0, 'k' },
-            { "ignore",      NO_ARG,       0, 'g' },
-            { "help",        NO_ARG,       0, 'h' },
-            { "version",     NO_ARG,       0, 'v' },
-            { "loglevel",    REQUIRED_ARG, 0, 'l' },
-            { "logfile",     REQUIRED_ARG, 0, 'f' },
-            { "multitenant", NO_ARG,       0, 'm' },
-            { "execute",     REQUIRED_ARG, 0, 'e' },
-            { "defcodecs",   REQUIRED_ARG, 0, 'c' },
-            { "neverrtp",    REQUIRED_ARG, 0, 'n' },
-            { "lostrtp",     REQUIRED_ARG, 0, 'x' },
-            { "tcpport",     REQUIRED_ARG, 0, 't' },
+            {"server", REQUIRED_ARG, 0, 's'},
+            {"realm", REQUIRED_ARG, 0, 'r'},
+            {"issuer", REQUIRED_ARG, 0, 'i'},
+            {"key", REQUIRED_ARG, 0, 'k'},
+            {"ignore", NO_ARG, 0, 'g'},
+            {"help", NO_ARG, 0, 'h'},
+            {"version", NO_ARG, 0, 'v'},
+            {"loglevel", REQUIRED_ARG, 0, 'l'},
+            {"logfile", REQUIRED_ARG, 0, 'f'},
+            {"multitenant", NO_ARG, 0, 'm'},
+            {"execute", REQUIRED_ARG, 0, 'e'},
+            {"defcodecs", REQUIRED_ARG, 0, 'c'},
+            {"neverrtp", REQUIRED_ARG, 0, 'n'},
+            {"lostrtp", REQUIRED_ARG, 0, 'x'},
+            {"tcpport", REQUIRED_ARG, 0, 't'},
 #if VIVOX_USE_SDK_BROWSER
-            { "browser",     NO_ARG,       0, 'b' },
+            {"browser", NO_ARG, 0, 'b'},
 #endif
-            { "affinity",    REQUIRED_ARG, 0, 'p' },
-            { "pooledalloc", NO_ARG,       0, 'a' },
-            { 0, 0, 0, 0 }
+            {"affinity", REQUIRED_ARG, 0, 'p'},
+            {"pooledalloc", NO_ARG, 0, 'a'},
+            {0, 0, 0, 0}
         };
         /* getopt_long stores the option index here. */
         int option_index = 0;
 
         int c = getopt_long(
-                argc,
-                argv,
-                "s:r:i:k:hvl:f:me:c:n:x:t:"
+            argc,
+            argv,
+            "s:r:i:k:hvl:f:me:c:n:x:t:"
 #if VIVOX_USE_SDK_BROWSER
-                "b"
+            "b"
 #endif
-                "p:a",
-                long_options,
-                &option_index
-                );
+            "p:a",
+            long_options,
+            &option_index);
 
         // Detect the end of the options.
-        if (c == -1) {
+        if (c == -1)
+        {
             break;
         }
 
-        switch (c) {
-            case 'v':
+        switch (c)
+        {
+        case 'v':
+        {
+            // already output above
+            return 0;
+        }
+        case 's':
+        {
+            app.SetServer(optarg);
+            break;
+        }
+        case 'r':
+        {
+            app.SetRealm(optarg);
+            break;
+        }
+        case 'i':
+        {
+            app.SetIssuer(optarg);
+            break;
+        }
+        case 'k':
+        {
+            app.SetKey(optarg);
+            break;
+        }
+        case 'l':
+        {
+            if (!parse_log_level(optarg, log_level))
             {
-                // already output above
-                return 0;
+                app.con_print("Error: unsupported loglevel: %s\nSupported log levels are none, error, warning, info, debug, trace, all\n", optarg);
+                return 1;
             }
-            case 's':
+            is_log_level_specified = true;
+            break;
+        }
+        case 'f':
+        {
+            // app.con_print("option -f with value `%s'\n", optarg);
+            s_logFileName = optarg;
+            break;
+        }
+        case 'm':
+        {
+            is_multitenant = true;
+            is_multitenant_set = true;
+            break;
+        }
+        case 'e':
+        {
+            script = optarg;
+            break;
+        }
+        case 'c':
+        {
+            if (1 != sscanf(optarg, "%u", &default_codecs_mask))
             {
-                app.SetServer(optarg);
-                break;
+                app.con_print("Error: unsigned integer expected for --defcodecs option, got %s\n", optarg);
+                return 1;
             }
-            case 'r':
-            {
-                app.SetRealm(optarg);
-                break;
-            }
-            case 'i':
-            {
-                app.SetIssuer(optarg);
-                break;
-            }
-            case 'k':
-            {
-                app.SetKey(optarg);
-                break;
-            }
-            case 'l':
-            {
-                if (!parse_log_level(optarg, log_level)) {
-                    app.con_print("Error: unsupported loglevel: %s\nSupported log levels are none, error, warning, info, debug, trace, all\n", optarg);
-                    return 1;
-                }
-                is_log_level_specified = true;
-                break;
-            }
-            case 'f':
-            {
-                // app.con_print("option -f with value `%s'\n", optarg);
-                s_logFileName = optarg;
-                break;
-            }
-            case 'm':
-            {
-                is_multitenant = true;
-                is_multitenant_set = true;
-                break;
-            }
-            case 'e':
-            {
-                script = optarg;
-                break;
-            }
-            case 'c':
-            {
-                if (1 != sscanf(optarg, "%u", &default_codecs_mask)) {
-                    app.con_print("Error: unsigned integer expected for --defcodecs option, got %s\n", optarg);
-                    return 1;
-                }
-                break;
-            }
+            break;
+        }
 #if VIVOX_USE_SDK_BROWSER
-            case 'b':
-            {
-                show_sdk_browser = true;
-                break;
-            }
+        case 'b':
+        {
+            show_sdk_browser = true;
+            break;
+        }
 #endif
-            case 'n':
+        case 'n':
+        {
+            if (1 != sscanf(optarg, "%d", &never_rtp_timeout_ms))
             {
-                if (1 != sscanf(optarg, "%d", &never_rtp_timeout_ms)) {
-                    app.con_print("Error: integer expected for --neverrtp option, got %s\n", optarg);
-                    return 1;
-                }
-                app.SetNeverRtpTimeout(never_rtp_timeout_ms);
-                break;
+                app.con_print("Error: integer expected for --neverrtp option, got %s\n", optarg);
+                return 1;
             }
-            case 'x':
+            app.SetNeverRtpTimeout(never_rtp_timeout_ms);
+            break;
+        }
+        case 'x':
+        {
+            if (1 != sscanf(optarg, "%d", &lost_rtp_timeout_ms))
             {
-                if (1 != sscanf(optarg, "%d", &lost_rtp_timeout_ms)) {
-                    app.con_print("Error: integer expected for --lostrtp option, got %s\n", optarg);
-                    return 1;
-                }
-                app.SetLostRtpTimeout(lost_rtp_timeout_ms);
-                break;
+                app.con_print("Error: integer expected for --lostrtp option, got %s\n", optarg);
+                return 1;
             }
-            case 't':
+            app.SetLostRtpTimeout(lost_rtp_timeout_ms);
+            break;
+        }
+        case 't':
+        {
+            if (1 != sscanf(optarg, "%hu", &tcp_control_port))
             {
-                if (1 != sscanf(optarg, "%hu", &tcp_control_port)) {
-                    app.con_print("Error: unsigned short expected for --tcpport option, got %s\n", optarg);
-                    return 1;
-                }
-                app.SetTcpControlPort(tcp_control_port);
-                break;
+                app.con_print("Error: unsigned short expected for --tcpport option, got %s\n", optarg);
+                return 1;
             }
-            case 'p':
+            app.SetTcpControlPort(tcp_control_port);
+            break;
+        }
+        case 'p':
+        {
+            if (1 != sscanf(optarg, "%lld", &processor_affinity_mask))
             {
-                if (1 != sscanf(optarg, "%lld", &processor_affinity_mask)) {
-                    app.con_print("Error: unsigned integer expected for --affinity option, got %s\n", optarg);
-                    return 1;
-                } else {
-                    app.con_print("Using processor affinity mask %lld (0x%llx)\n", processor_affinity_mask, processor_affinity_mask);
-                    app.SetProcessorAffinityMask(processor_affinity_mask);
-                }
-                break;
+                app.con_print("Error: unsigned integer expected for --affinity option, got %s\n", optarg);
+                return 1;
             }
-            case 'a':
+            else
             {
-                useParanoidAllocator = false;
-                break;
+                app.con_print("Using processor affinity mask %lld (0x%llx)\n", processor_affinity_mask, processor_affinity_mask);
+                app.SetProcessorAffinityMask(processor_affinity_mask);
             }
-            case 'h':
-            default:
-            {
-                return usage();
-            }
+            break;
+        }
+        case 'a':
+        {
+            useParanoidAllocator = false;
+            break;
+        }
+        case 'h':
+        default:
+        {
+            return usage();
+        }
         }
     }
 
-    if (app.GetServer().empty() && app.GetRealm().empty() && app.GetIssuer().empty() && app.GetKey().empty() && !is_multitenant_set) {
+    if (app.GetServer().empty() && app.GetRealm().empty() && app.GetIssuer().empty() && app.GetKey().empty() && !is_multitenant_set)
+    {
         app.SetServer("https://vdx5.www.vivox.com/api2/");
         app.SetRealm("vdx5.vivox.com");
         app.SetIssuer("vivoxsampleapps-ssa-dev");
@@ -564,26 +622,32 @@ int main_proc(int argc, char *argv[], string cmdList[])
         is_multitenant = true;
     }
 
-    if (app.GetServer().empty() || app.GetRealm().empty() || app.GetIssuer().empty() || app.GetKey().empty()) {
+    if (app.GetServer().empty() || app.GetRealm().empty() || app.GetIssuer().empty() || app.GetKey().empty())
+    {
         return usage();
     }
 
     app.SetServerMultitenant(is_multitenant);
 
-
     int status;
     app.con_print("Type 'help' for a quickstart guide and full list of available commands.\n");
 
-    if (is_log_level_specified) {
-        if (s_logFileName.empty()) {
+    if (is_log_level_specified)
+    {
+        if (s_logFileName.empty())
+        {
             app.con_print("Error: --loglevel command line option has no effect without '--logfile filename.log'\n");
             return 1;
-        } else if (!OpenLogFile()) {
+        }
+        else if (!OpenLogFile())
+        {
             app.con_print("Error: unable to create/open log file for writing: \"%s\"'\n", s_logFileName.c_str());
             return 1;
         }
         app.con_print("Log level: %s\nLog file: %s\n", GetLogLevelName(log_level), s_logFileName.c_str());
-    } else {
+    }
+    else
+    {
         app.con_print("Logging is off.\n");
     }
 
@@ -591,14 +655,16 @@ int main_proc(int argc, char *argv[], string cmdList[])
 
     vx_sdk_config_t config = MakeConfig(app, default_codecs_mask, log_level);
 
-    if (useParanoidAllocator) {
+    if (useParanoidAllocator)
+    {
         ParanoidAllocator::ConfigureHooksIfRequired(config);
     }
 
     std::string codecsInfo = GetCodecsInfoString(config.default_codecs_mask);
 
     status = vx_initialize3(&config, sizeof(config));
-    if (status != 0) {
+    if (status != 0)
+    {
         cerr << "Error " << status << " returned from vx_initialize3()" << endl;
         return 1;
     }
@@ -607,7 +673,8 @@ int main_proc(int argc, char *argv[], string cmdList[])
 
 #if VIVOX_USE_SDK_BROWSER
     SDKBrowserWin *pBrowser = NULL;
-    if (show_sdk_browser) {
+    if (show_sdk_browser)
+    {
         pBrowser = new SDKBrowserWin;
         app.SetMessageObserver(pBrowser);
     }
@@ -620,10 +687,13 @@ int main_proc(int argc, char *argv[], string cmdList[])
     auto cbStartWithMicAuthorization = [&isMicAuthorized, &semaphore, &app](bool isAuthorized)
     {
         isMicAuthorized = isAuthorized;
-        if (isAuthorized) {
+        if (isAuthorized)
+        {
             // Start the event loop on another thread
             app.Start();
-        } else {
+        }
+        else
+        {
             cerr << "No permission to access the microphone." << endl;
             app.Shutdown();
         }
@@ -635,10 +705,12 @@ int main_proc(int argc, char *argv[], string cmdList[])
     vxplatform::delete_event(semaphore);
     semaphore = NULL;
 
-    std::ifstream fin;  // used to read from a file.
-    if (!script.empty()) {
+    std::ifstream fin; // used to read from a file.
+    if (!script.empty())
+    {
         fin.open(script.c_str());
-        if (!fin.is_open()) {
+        if (!fin.is_open())
+        {
             cerr << "Error opening input file: " << script << endl;
             g_exit = true;
         }
@@ -648,94 +720,131 @@ int main_proc(int argc, char *argv[], string cmdList[])
     const char *prompt = "[SDKSampleApp]: ";
     setbuf(stdout, NULL);
 
-    vxplatform::os_event_handle listenerEvent;
+    int cmdIdx = 0;
 
-    while (!g_exit) {
+    while (!g_exit)
+    {
         std::string tmpLine;
-        if (g_sdk_sampleapp_getline_callback) {
-            if (!g_sdk_sampleapp_getline_callback(tmpLine)) {
+        if (g_sdk_sampleapp_getline_callback)
+        {
+            if (!g_sdk_sampleapp_getline_callback(tmpLine))
+            {
                 break;
             }
-        } else if (!fin.is_open()) {
+        }
+        else if (!fin.is_open())
+        {
             app.con_print("%s", prompt);
             cout.flush();
-            std::wstring line;
-            std::getline(std::wcin, line);
-            std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> converterX;
-            tmpLine = converterX.to_bytes(line);
-            if (vxplatform::wait_event(SDKSampleApp  m_listenerThreadTerminatedEvent, 30000)) {
-                tmpLine = cmdList[0];
+
+            vxplatform::create_event(app.ListenerEventLink());
+            vxplatform::wait_event(*(app.ListenerEventLink()));
+            if (cmdIdx < 3) {
+                tmpLine = cmdList[cmdIdx];
+                app.con_print("%s", tmpLine);
+                cmdIdx++;
             }
+            else {
+                std::wstring line;
+                std::getline(std::wcin, line);
+                std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> converterX;
+                tmpLine = converterX.to_bytes(line);
+            }
+
+            vxplatform::delete_event(*(app.ListenerEventLink()));
+
             tmpLine = handleSpecialCharacters(tmpLine);
-            if (std::wcin.eof()) {
+            if (std::wcin.eof())
+            {
                 break;
             }
-        } else {
+        }
+        else
+        {
             tmpLine.clear();
             std::getline(fin, tmpLine);
 
             app.con_print("%s\n", tmpLine.c_str());
-            if (fin.eof()) {
+            if (fin.eof())
+            {
                 fin.close();
             }
         }
 
         trim(tmpLine);
-        if (tmpLine.empty() || tmpLine[0] == '#') {
+        if (tmpLine.empty() || tmpLine[0] == '#')
+        {
             continue;
         }
 
         // Get the user input and determine the desired action
         std::vector<std::string> cmd = SDKSampleApp::splitCmdLine(tmpLine);
 
-        if (cmd.empty()) {
+        if (cmd.empty())
+        {
             continue;
         }
 
-        if (stricmp(cmd[0].c_str(), "file") == 0) {
+        if (stricmp(cmd[0].c_str(), "file") == 0)
+        {
             std::string inputfilename;
-            if (cmd.size() < 2) {
+            if (cmd.size() < 2)
+            {
                 cerr << "Error opening input file, no file name given" << endl;
 
                 continue;
             }
             inputfilename = SYS_APP_HOME + cmd[1];
-            if (fin.is_open()) {
-                fin.close();                 // close any open file, breaks nesting
+            if (fin.is_open())
+            {
+                fin.close(); // close any open file, breaks nesting
             }
             fin.clear();
             fin.open(inputfilename.c_str());
-            if (!fin.is_open()) {
+            if (!fin.is_open())
+            {
                 cerr << "Error opening input file: " << inputfilename << endl;
             }
 
             continue;
             // for diagnostic purposes only
-        } else if (cmd[0] == "sleep" || cmd[0] == "sleepms") {
-            if (cmd.size() == 2) {
+        }
+        else if (cmd[0] == "sleep" || cmd[0] == "sleepms")
+        {
+            if (cmd.size() == 2)
+            {
                 int ms = atoi(cmd.at(1).c_str());
-                if (cmd[0] == "sleep") {
+                if (cmd[0] == "sleep")
+                {
                     ms *= 1000;
                 }
                 app.con_print("Sleeping %d ms.\n", ms);
                 GenericSleepMilliSeconds(ms);
-            } else {
+            }
+            else
+            {
                 app.con_print("usage: sleep <number> of seconds to sleep\n");
             }
 
             continue;
             // for diagnostic purposes only
-        } else if (cmd[0] == "echo") {
+        }
+        else if (cmd[0] == "echo")
+        {
             std::stringstream ss;
-            if (cmd.size() > 1) {
-                for (size_t i = 1; i < cmd.size(); i++) {
+            if (cmd.size() > 1)
+            {
+                for (size_t i = 1; i < cmd.size(); i++)
+                {
                     ss << cmd[i] << " ";
                 }
             }
             app.con_print("%s\n", ss.str().c_str());
 
             continue;
-        } else if (cmd[0] == "pause") {
+        }
+        else if (cmd[0] == "pause")
+        {
             // wait for a return
             std::wstring line;
             std::getline(std::wcin, line);
@@ -744,7 +853,8 @@ int main_proc(int argc, char *argv[], string cmdList[])
         }
 
         app.Lock();
-        if (!app.ProcessCommand(cmd)) {
+        if (!app.ProcessCommand(cmd))
+        {
             app.Unlock();
             break; // 'quit' signals break
         }
@@ -753,7 +863,8 @@ int main_proc(int argc, char *argv[], string cmdList[])
 
 #if VIVOX_USE_SDK_BROWSER
     app.SetMessageObserver(NULL);
-    if (pBrowser) {
+    if (pBrowser)
+    {
         delete pBrowser;
         pBrowser = NULL;
     }
@@ -773,19 +884,22 @@ int main_proc(int argc, char *argv[], string cmdList[])
 
     app.con_print("Shutdown complete.\n");
 
-    if (consoleOutputCP != CP_UTF8) {
+    if (consoleOutputCP != CP_UTF8)
+    {
         SetConsoleOutputCP(consoleOutputCP);
     }
-    if (consoleCP != CP_UTF8) {
+    if (consoleCP != CP_UTF8)
+    {
         SetConsoleCP(consoleCP);
     }
 
     return 0;
 }
 
-void random_name(string *name) {
+void random_name(string *name)
+{
     int randTemp;
-    int numRange_MIN = 48,numRange_MAX = 57;
+    int numRange_MIN = 48, numRange_MAX = 57;
     int lAphRange_MIN = 65, lAphRange_MAX = 90;
     int sAphRange_MIN = 97, sAphRange_MAX = 122;
 
@@ -793,22 +907,24 @@ void random_name(string *name) {
 
     srand((unsigned int)time(NULL));
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++)
+    {
         randTemp = rand() % 3;
-        switch (randTemp) {
-            case 0:
-                randTemp = (rand() % numRange_MAX) + numRange_MIN;
+        switch (randTemp)
+        {
+        case 0:
+            randTemp = (rand() % 10) + numRange_MIN;
             break;
-            case 1:
-                randTemp = (rand() % lAphRange_MAX) + lAphRange_MIN;
+        case 1:
+            randTemp = (rand() % 26) + lAphRange_MIN;
             break;
-            case 2:
-                randTemp = (rand() % sAphRange_MAX) + sAphRange_MIN;
+        case 2:
+            randTemp = (rand() % 26) + sAphRange_MIN;
             break;
         }
         (*name).append(1, randTemp);
     }
-    (*name).append(1, '\0');
+    (*name).append(1, '.');
 }
 
 #if defined(VX_CALL_MAIN_FROM_UI)
@@ -816,38 +932,51 @@ void run_ext_main(const std::string &cmd)
 {
     std::vector<std::string> string_args;
 
-    if (cmd.size() > 0) {
+    if (cmd.size() > 0)
+    {
         string_args.clear();
         size_t start = 0;
         size_t stop = 0;
-        for (size_t i = 0; i <= cmd.size(); i++) {
-            if (i < cmd.size()) {
-                if (cmd[i] == L'\"') {
+        for (size_t i = 0; i <= cmd.size(); i++)
+        {
+            if (i < cmd.size())
+            {
+                if (cmd[i] == L'\"')
+                {
                     i++;
-                    for (; i < cmd.size(); i++) {
-                        if (cmd[i] == L'\"') {
+                    for (; i < cmd.size(); i++)
+                    {
+                        if (cmd[i] == L'\"')
+                        {
                             break;
                         }
                     }
                 }
-                if (i >= cmd.size()) {
+                if (i >= cmd.size())
+                {
                     break;
                 }
-                if (cmd[i] == L'\'') {
+                if (cmd[i] == L'\'')
+                {
                     i++;
-                    for (; i < cmd.size(); i++) {
-                        if (cmd[i] == L'\'') {
+                    for (; i < cmd.size(); i++)
+                    {
+                        if (cmd[i] == L'\'')
+                        {
                             break;
                         }
                     }
                 }
-                if (i >= cmd.size()) {
+                if (i >= cmd.size())
+                {
                     break;
                 }
             }
-            if (i == cmd.size() || cmd[i] == ' ') {
+            if (i == cmd.size() || cmd[i] == ' ')
+            {
                 stop = i;
-                if (stop - start > 1) {
+                if (stop - start > 1)
+                {
                     std::string p = cmd.substr(start, stop - start);
                     string_args.push_back(p);
                 }
@@ -861,13 +990,13 @@ void run_ext_main(const std::string &cmd)
     args.reserve(string_args.size() + 1);
     args.resize(0);
     std::transform(
-            std::begin(tmp),
-            std::end(tmp),
-            std::back_inserter(args),
-            [](std::string &s)
-    {
-        return &s[0];
-    });
+        std::begin(tmp),
+        std::end(tmp),
+        std::back_inserter(args),
+        [](std::string &s)
+        {
+            return &s[0];
+        });
     args.push_back(nullptr);
 
     main_proc((int)args.size() - 1, args.data());
@@ -883,7 +1012,6 @@ int main(int argc, char *argv[])
     cmdList[1].append(name);
     cmdList[2] = "addsession -c sip:confctl-g-jisang2336-te04-dev.CLPA@mt1s.vivox.com";
 
-    
     return main_proc(argc, argv, cmdList);
 }
 #endif

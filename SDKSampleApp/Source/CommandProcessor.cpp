@@ -1172,6 +1172,8 @@ void SDKSampleApp::connect(const vector<string> &cmd)
     }
     con_print("\r * Connecting to %s with connector handle %s...\n", m_server.c_str(), connectorHandle.empty() ? "<AUTOGENERATE>" : connectorHandle.c_str());
     connector_create(m_server, connectorHandle, configured_codecs);
+    con_print("\n%s\n", "Cummunication Termination!");
+    vxplatform::set_event(listenerEvent);
 }
 
 void SDKSampleApp::participanteffect(const vector<string> &cmd)

@@ -1,0 +1,8 @@
+# : comments
+
+# no .a files
+*.ipch
+
+# ignore all files in the build/ directory
+.vs/
+

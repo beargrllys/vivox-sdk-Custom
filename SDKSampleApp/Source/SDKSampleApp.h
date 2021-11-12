@@ -21,6 +21,7 @@
 #include <map>
 #include <list>
 #include <mutex>
+#include <condition_variable>
 #include <set>
 #include <functional>
 #include <sstream>
@@ -30,7 +31,6 @@
 #include "VxcEvents.h"
 #include "VxcRequests.h"
 #include "VxcResponses.h"
-
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
@@ -42,10 +42,10 @@
 // Please contact your Vivox representative for more information.
 #define THIS_APP_UNIQUE_3_LETTERS_USER_AGENT_ID_STRING "VSA"
 
-# include <winsock2.h>
-# include <ws2tcpip.h>
-# undef socket_t
-# define socket_t SOCKET
+#include <winsock2.h>
+#include <ws2tcpip.h>
+#undef socket_t
+#define socket_t SOCKET
 
 #define socketclose close
 #define GetHostName gethostname
@@ -53,10 +53,10 @@
 #define TELNET_INFO_HEADER "**************************** Telnet UI Information *****************************\n";
 #define TELNET_INFO_FOOTER "********************************************************************************\n";
 #define TELNET_INFO "On Windows, we recommend PuTTY (https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html) to access the telnet interface. Required client settings for PuTTY:\n" \
-    "\tTerminal: Implicit CR in every LF\n"                                                                                                                                                 \
-    "\tTerminal->Keyboard : The Backspace key - Control - H\n"                                                                                                                              \
-    "\tConnection->Telnet : Telnet negotiation mode : Passive\n"                                                                                                                            \
-    "On Linux and macOS, use Netcat (nc) utility or telnet client (if it available). On Linux and macOS, no additional settings are required.\n"
+                    "\tTerminal: Implicit CR in every LF\n"                                                                                                                                 \
+                    "\tTerminal->Keyboard : The Backspace key - Control - H\n"                                                                                                              \
+                    "\tConnection->Telnet : Telnet negotiation mode : Passive\n"                                                                                                            \
+                    "On Linux and macOS, use Netcat (nc) utility or telnet client (if it available). On Linux and macOS, no additional settings are required.\n"
 
 #if defined(__GNUC__) || defined(__clang__)
 #define ATTRIBUTE_FORMAT(archetype, string_index, first_to_check) __attribute__((format(archetype, string_index, first_to_check)))
@@ -69,12 +69,14 @@ using namespace std;
 class SDKSampleApp
 {
 public:
-    typedef int (ATTRIBUTE_FORMAT(printf, 1, 0) *printf_wrapper_ptr)(const char *format, const va_list &vl);
+    typedef int(ATTRIBUTE_FORMAT(printf, 1, 0) * printf_wrapper_ptr)(const char *format, const va_list &vl);
     typedef void (*pf_exit_callback_t)();
-    struct SampleAppPosition {
+    struct SampleAppPosition
+    {
         double x, y, z;
     };
-    struct SampleAppOrientation {
+    struct SampleAppOrientation
+    {
         double at_x, at_y, at_z, up_x, up_y, up_z;
     };
 
@@ -91,21 +93,37 @@ public:
     void Unlock();
 
     string GetServer()
-    { return m_server; }
+    {
+        return m_server;
+    }
     void SetServer(const string &value)
-    { m_server = value; }
+    {
+        m_server = value;
+    }
     string GetRealm()
-    { return m_realm; }
+    {
+        return m_realm;
+    }
     void SetRealm(const string &value)
-    { m_realm = value; }
+    {
+        m_realm = value;
+    }
     string GetIssuer()
-    { return m_accessTokenIssuer; }
+    {
+        return m_accessTokenIssuer;
+    }
     void SetIssuer(const string &value)
-    { m_accessTokenIssuer = value; }
+    {
+        m_accessTokenIssuer = value;
+    }
     string GetKey()
-    { return m_accessTokenKey; }
+    {
+        return m_accessTokenKey;
+    }
     void SetKey(const string &value)
-    { m_accessTokenKey = value; }
+    {
+        m_accessTokenKey = value;
+    }
     bool IsServerMultitenant() const
     {
         return m_isMultitenant;
@@ -209,9 +227,7 @@ public:
     bool CheckHasSessionGroupHandle();
     bool CheckHasSessionOrSessionGroupHandle();
 
-
     static int con_print(const char *format, ...) ATTRIBUTE_FORMAT(printf, 1, 2);
-
 
     static std::vector<std::string> splitCmdLine(const std::string &s);
 
@@ -222,6 +238,8 @@ public:
 
     // callbacks
     void OnBeforeReceivedAudioMixed(const char *session_group_handle, const char *initial_target_uri, vx_before_recv_audio_mixed_participant_data_t *participants_data, size_t num_participants);
+
+    vxplatform::os_event_handle *SDKSampleApp::ListenerEventLink();
 
 private:
     static SDKSampleApp *s_pInstance;
@@ -261,26 +279,26 @@ private:
     void session_send_message(const string &sessionHandle, const string &message, const string &customMetadataNS, const string &customMetadata);
     void account_send_message(const string &accountHandle, const string &message, const string &user, const string &customMetadataNS, const string &customMetadata);
     void session_archive_messages(
-            const string &sessionHandle,
-            unsigned int max,
-            const string &time_start,
-            const string &time_end,
-            const string &text,
-            const string &before,
-            const string &after,
-            int index,
-            const string &user);
+        const string &sessionHandle,
+        unsigned int max,
+        const string &time_start,
+        const string &time_end,
+        const string &text,
+        const string &before,
+        const string &after,
+        int index,
+        const string &user);
     void account_archive_query(
-            const string &accountHandle,
-            unsigned int max,
-            const string &time_start,
-            const string &time_end,
-            const string &text,
-            const string &before,
-            const string &after,
-            int index,
-            const string &channel,
-            const string &user);
+        const string &accountHandle,
+        unsigned int max,
+        const string &time_start,
+        const string &time_end,
+        const string &text,
+        const string &before,
+        const string &after,
+        int index,
+        const string &channel,
+        const string &user);
     void account_set_presence(const string &accountHandle, vx_buddy_presence_state presence, const string &message);
     void account_send_subscription_reply(const string &accountHandle, const string &buddy, bool allow);
     void session_send_notification(const string &sessionHandle, bool typing);
@@ -370,6 +388,7 @@ private:
 
     vxplatform::os_event_handle m_messageAvailableEvent;
     vxplatform::os_event_handle m_listenerThreadTerminatedEvent;
+    vxplatform::os_event_handle listenerEvent;
     vxplatform::os_thread_handle m_listenerThread;
     vxplatform::os_thread_id m_listenerThreadId;
     bool m_started;
@@ -440,8 +459,7 @@ private:
         typedef void (SDKSampleApp::*CommandFunction)(const vector<string> &);
 
     public:
-        Command(const string &name, const CommandFunction &commandFunction, const string &usage, const string &description, const string &documentation = string()) :
-            m_commandFunction(commandFunction)
+        Command(const string &name, const CommandFunction &commandFunction, const string &usage, const string &description, const string &documentation = string()) : m_commandFunction(commandFunction)
         {
             m_name = name;
             m_usage = usage;
@@ -449,17 +467,29 @@ private:
             m_documentation = documentation;
         }
         const string &GetName() const
-        { return m_name; }
+        {
+            return m_name;
+        }
         const CommandFunction &GetCommandFunction() const
-        { return m_commandFunction; }
+        {
+            return m_commandFunction;
+        }
         const string &GetUsage() const
-        { return m_usage; }
+        {
+            return m_usage;
+        }
         const string &GetDescription() const
-        { return m_description; }
+        {
+            return m_description;
+        }
         const string &GetDocumentation() const
-        { return m_documentation; }
+        {
+            return m_documentation;
+        }
         void SetDocumentation(const string &documentation)
-        { m_documentation = documentation; }
+        {
+            m_documentation = documentation;
+        }
 
     private:
         string m_name;
@@ -488,17 +518,29 @@ private:
             m_volume = 0;
         }
         const string &GetUri() const
-        { return m_uri; }
+        {
+            return m_uri;
+        }
         const bool &GetHasAudio() const
-        { return m_hasAudio; }
+        {
+            return m_hasAudio;
+        }
         const bool &GetHasText() const
-        { return m_hasText; }
+        {
+            return m_hasText;
+        }
         const bool &GetChannelMuted() const
-        { return m_channelMuted; }
+        {
+            return m_channelMuted;
+        }
         const bool &GetMutedForMe() const
-        { return m_mutedForMe; }
+        {
+            return m_mutedForMe;
+        }
         const int &GetVolume() const
-        { return m_volume; }
+        {
+            return m_volume;
+        }
         void UpdateParticipant(vx_evt_participant_updated *evt)
         {
             m_hasAudio = (evt->active_media & VX_MEDIA_FLAGS_AUDIO) ? true : false;
@@ -542,48 +584,64 @@ private:
             m_accountHandle = accountHandle;
         }
         const string &GetUri() const
-        { return m_uri; }
+        {
+            return m_uri;
+        }
         const string &GetSessionHandle() const
-        { return m_sessionHandle; }
+        {
+            return m_sessionHandle;
+        }
         const string &GetSessionGroupHandle() const
-        { return m_sessionGroupHandle; }
+        {
+            return m_sessionGroupHandle;
+        }
         const string &GetAccountHandle() const
-        { return m_accountHandle; }
+        {
+            return m_accountHandle;
+        }
         const ParticipantMap &GetParticipants() const
-        { return m_participants; }
+        {
+            return m_participants;
+        }
         pair<ParticipantMapConstItr, bool> AddParticipant(const string &uri)
-        { return m_participants.insert(make_pair(uri, Participant(uri))); }
+        {
+            return m_participants.insert(make_pair(uri, Participant(uri)));
+        }
         size_t RemoveParticipant(const string &uri)
-        { return m_participants.erase(uri); }
+        {
+            return m_participants.erase(uri);
+        }
         const ParticipantMapConstItr UpdateParticipant(vx_evt_participant_updated *evt)
         {
             ParticipantMapItr itr = m_participants.find(evt->participant_uri);
-            if (itr != m_participants.end()) {
+            if (itr != m_participants.end())
+            {
                 itr->second.UpdateParticipant(evt);
             }
             return itr;
         }
         void PrintParticipants(const string &format) const
         {
-            if (m_participants.empty()) {
+            if (m_participants.empty())
+            {
                 return;
             }
-            for (ParticipantMapConstItr itr = m_participants.begin(); itr != m_participants.end(); ++itr) {
+            for (ParticipantMapConstItr itr = m_participants.begin(); itr != m_participants.end(); ++itr)
+            {
                 itr->second.PrintParticipant(format);
             }
         }
         bool IsDancing() const { return m_dancer.IsStarted(); }
         void DanceStart(
-                const string &sessionHandle,
-                double x0,
-                double y0,
-                double z0,
-                double rmin,
-                double rmax,
-                double angularVelocityDegPerSec,
-                double oscillationPeriodSeconds,
-                int updateMilliseconds
-                )
+            const string &sessionHandle,
+            double x0,
+            double y0,
+            double z0,
+            double rmin,
+            double rmax,
+            double angularVelocityDegPerSec,
+            double oscillationPeriodSeconds,
+            int updateMilliseconds)
         {
             m_dancer.Start(sessionHandle, x0, y0, z0, rmin, rmax, angularVelocityDegPerSec, oscillationPeriodSeconds, updateMilliseconds);
         }
@@ -603,20 +661,19 @@ private:
             virtual ~Dancer();
 
         private:
-            Dancer(const Dancer &) {}  // disabled
+            Dancer(const Dancer &) {} // disabled
 
         public:
             void Start(
-                    const string &sessionHandle,
-                    double x0,
-                    double y0,
-                    double z0,
-                    double rmin,
-                    double rmax,
-                    double angularVelocityDegPerSec,
-                    double oscillationPeriodSeconds,
-                    int updateMilliseconds
-                    );
+                const string &sessionHandle,
+                double x0,
+                double y0,
+                double z0,
+                double rmin,
+                double rmax,
+                double angularVelocityDegPerSec,
+                double oscillationPeriodSeconds,
+                int updateMilliseconds);
             void Stop();
             bool IsStarted() const
             {
@@ -650,7 +707,6 @@ private:
     };
 
     map<string, Session *> m_sessions;
-
 
     void TerminateListenerThread();
 
