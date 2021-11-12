@@ -1,0 +1,275 @@
+/* Copyright (c) 2014-2018 by Mercer Road Corp
+*
+* Permission to use, copy, modify or distribute this software in binary or source form
+* for any purpose is allowed only under explicit prior consent in writing from Mercer Road Corp
+*
+* THE SOFTWARE IS PROVIDED "AS IS" AND MERCER ROAD CORP DISCLAIMS
+* ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED
+* WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL MERCER ROAD CORP
+* BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL
+* DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR
+* PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS
+* ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS
+* SOFTWARE.
+*/
+
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#ifndef APSTUDIO_INVOKED
+#include "targetver.h"
+#endif
+#define APSTUDIO_HIDDEN_SYMBOLS
+#include "windows.h"
+#undef APSTUDIO_HIDDEN_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (United States) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_JOINCHANNEL         ICON                    "joinchannel.ico"
+
+IDI_SMALL               ICON                    "small.ico"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDC_JOINCHANNEL MENU
+BEGIN
+    POPUP "Tools"
+    BEGIN
+        MENUITEM "Audio Setup",                 ID_TOOLS_AUDIOSETUP
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDC_JOINCHANNEL ACCELERATORS
+BEGIN
+    "?",            IDM_ABOUT,              ASCII,  ALT
+    "/",            IDM_ABOUT,              ASCII,  ALT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_MAINDIALOG DIALOGEX 0, 0, 657, 326
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Join Vivox Channel"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "Click one of the radio buttons to join the channel as the user selected.",IDC_STATIC,228,7,226,8
+    CONTROL         "Player 1",IDC_RADIO1,"Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,7,54,42,10
+    CONTROL         "Player 2",IDC_RADIO2,"Button",BS_AUTORADIOBUTTON,91,54,42,10
+    CONTROL         "Player 3",IDC_RADIO3,"Button",BS_AUTORADIOBUTTON,175,54,42,10
+    CONTROL         "Player  4",IDC_RADIO4,"Button",BS_AUTORADIOBUTTON,259,54,44,10
+    CONTROL         "Player 5",IDC_RADIO5,"Button",BS_AUTORADIOBUTTON,345,54,42,10
+    CONTROL         "Player 6",IDC_RADIO6,"Button",BS_AUTORADIOBUTTON,429,54,42,10
+    CONTROL         "Player 7",IDC_RADIO7,"Button",BS_AUTORADIOBUTTON,513,54,42,10
+    CONTROL         "Player 8",IDC_RADIO8,"Button",BS_AUTORADIOBUTTON,597,54,42,10
+    LISTBOX         IDC_LIST_LOG,6,162,643,153,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP
+    LTEXT           "Static",IDC_LS1,7,68,57,8
+    LTEXT           "Static",IDC_LS2,91,68,57,8
+    LTEXT           "Static",IDC_LS3,175,68,57,8
+    LTEXT           "Static",IDC_LS4,260,68,57,8
+    LTEXT           "Static",IDC_LS5,346,68,57,8
+    LTEXT           "Static",IDC_LS6,429,68,57,8
+    LTEXT           "Static",IDC_LS7,513,68,57,8
+    LTEXT           "Static",IDC_LS8,597,68,57,8
+    LTEXT           "Static",IDC_CL1,7,83,57,8
+    LTEXT           "Static",IDC_CL2,91,83,57,8
+    LTEXT           "Static",IDC_CL3,175,83,57,8
+    LTEXT           "Static",IDC_CL4,260,83,57,8
+    LTEXT           "Static",IDC_CL5,346,83,57,8
+    LTEXT           "Static",IDC_CL6,429,83,57,8
+    LTEXT           "Static",IDC_CL7,513,83,57,8
+    LTEXT           "Static",IDC_CL8,597,83,57,8
+    LTEXT           "Static",IDC_SS1,7,98,57,8
+    LTEXT           "Static",IDC_SS2,91,98,57,8
+    LTEXT           "Static",IDC_SS3,175,98,57,8
+    LTEXT           "Static",IDC_SS4,260,98,57,8
+    LTEXT           "Static",IDC_SS5,346,98,57,8
+    LTEXT           "Static",IDC_SS6,429,98,57,8
+    LTEXT           "Static",IDC_SS7,513,98,57,8
+    LTEXT           "Static",IDC_SS8,597,98,57,8
+    CONTROL         "Team 1 Channel",IDC_TEAM1,"Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,261,25,67,10
+    CONTROL         "No Channel",IDC_TEAM4,"Button",BS_AUTORADIOBUTTON,183,26,67,10,WS_EX_TRANSPARENT
+    CONTROL         "Echo Channel",IDC_TEAM2,"Button",BS_AUTORADIOBUTTON,339,25,67,10,WS_EX_TRANSPARENT
+    CONTROL         "3D channel",IDC_TEAM3,"Button",BS_AUTORADIOBUTTON,417,25,55,10,WS_EX_TRANSPARENT
+    LTEXT           "Static",IDC_MM1,7,112,57,8
+    LTEXT           "Static",IDC_MM2,91,112,57,8
+    LTEXT           "Static",IDC_MM3,175,112,57,8
+    LTEXT           "Static",IDC_MM4,260,112,57,8
+    LTEXT           "Static",IDC_MM5,346,112,57,8
+    LTEXT           "Static",IDC_MM6,430,112,57,8
+    LTEXT           "Static",IDC_MM7,514,112,57,8
+    LTEXT           "Static",IDC_MM8,597,112,57,8
+    CONTROL         "Mute for Me",IDC_CHECK1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,126,57,8
+    CONTROL         "Mute for Me",IDC_CHECK2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,91,126,57,8
+    CONTROL         "Mute for Me",IDC_CHECK3,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,175,126,57,8
+    CONTROL         "Mute for Me",IDC_CHECK4,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,260,126,57,8
+    CONTROL         "Mute for Me",IDC_CHECK5,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,346,126,57,8
+    CONTROL         "Mute for Me",IDC_CHECK6,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,430,126,57,8
+    CONTROL         "Mute for Me",IDC_CHECK7,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,514,126,57,8
+    CONTROL         "Mute for Me",IDC_CHECK8,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,597,126,50,8
+    PUSHBUTTON      "Mod Mute",IDC_BTNMM1,7,143,50,14
+    PUSHBUTTON      "Mod Mute",IDC_BTNMM2,90,143,50,14
+    PUSHBUTTON      "Mod Mute",IDC_BTNMM3,175,143,50,14
+    PUSHBUTTON      "Mod Mute",IDC_BTNMM4,261,143,50,14
+    PUSHBUTTON      "Mod Mute",IDC_BTNMM5,345,143,50,14
+    PUSHBUTTON      "Mod Mute",IDC_BTNMM6,429,143,50,14
+    PUSHBUTTON      "Mod Mute",IDC_BTNMM7,513,143,50,14
+    PUSHBUTTON      "Mod Mute",IDC_BTNMM8,600,143,50,14
+    CONTROL         "Mute Input",IDC_MUTEINPUT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,542,7,51,10
+    CONTROL         "Mute Output",IDC_MUTEOUTPUT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,593,7,57,10
+    EDITTEXT        IDC_EDIT1,498,24,30,12,ES_AUTOHSCROLL
+    RTEXT           "X",IDC_STATIC,486,26,8,8
+    RTEXT           "Y",IDC_STATIC,534,26,8,8
+    RTEXT           "Z",IDC_STATIC,582,26,8,8
+    EDITTEXT        IDC_EDIT2,546,24,30,12,ES_AUTOHSCROLL | ES_WANTRETURN
+    EDITTEXT        IDC_EDIT3,594,24,30,12,ES_AUTOHSCROLL | ES_WANTRETURN
+    PUSHBUTTON      "Apply",IDC_SET_POSITION,624,24,32,12
+END
+
+IDD_AUDIO_SETUP DIALOGEX 0, 0, 359, 232
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Audio Setup"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    GROUPBOX        "Audio Output Device",IDC_STATIC,7,7,345,106
+    CONTROL         "Use Default System Device ",IDC_RADIO_OUTPUT_OS_SYSTEM,
+                    "Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,17,21,335,10
+    CONTROL         "Use Default Communication Device ",IDC_RADIO_OUTPUT_OS_COMM,
+                    "Button",BS_AUTORADIOBUTTON | WS_TABSTOP,17,36,335,10
+    CONTROL         "Use Specific Audio Output Device",IDC_RADIO_OUTPUT_CHOOSE,
+                    "Button",BS_AUTORADIOBUTTON | WS_TABSTOP,17,51,140,10
+    COMBOBOX        IDC_CHOOSE_OUTPUT,27,67,237,73,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Test Output Device",IDC_TEST_OUTPUT,17,86,83,14
+    CONTROL         "",IDC_OUTPUT_VOLUME,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,121,85,149,15
+    GROUPBOX        "Audio Input Device",IDC_STATIC,7,118,345,108
+    CONTROL         "Use Default System Device ",IDC_RADIO_INPUT_OS_SYSTEM,
+                    "Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,17,130,332,10
+    CONTROL         "Use Default Communication Device ",IDC_RADIO_INPUT_OS_COMM,
+                    "Button",BS_AUTORADIOBUTTON | WS_TABSTOP,17,145,332,10
+    CONTROL         "Use Specific Audio Input Device",IDC_RADIO_INPUT_CHOOSE,
+                    "Button",BS_AUTORADIOBUTTON | WS_TABSTOP,17,161,135,10
+    COMBOBOX        IDC_CHOOSE_INPUT,30,177,237,62,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Record",IDC_RECORD,17,198,50,14
+    PUSHBUTTON      "Play Recording",IDC_PLAY_RECORDING,68,198,60,14
+    CONTROL         "",IDC_INPUT_VOLUME,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,129,197,149,15
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_MAINDIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 650
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 318
+        HORZGUIDE, 30
+    END
+
+    IDD_AUDIO_SETUP, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 352
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 195
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#ifndef APSTUDIO_INVOKED\r\n"
+    "#include ""targetver.h""\r\n"
+    "#endif\r\n"
+    "#define APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""windows.h""\r\n"
+    "#undef APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_APP_TITLE           "joinchannel"
+    IDC_JOINCHANNEL         "JOINCHANNEL"
+END
+
+#endif    // English (United States) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

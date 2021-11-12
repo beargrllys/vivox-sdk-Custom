@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\joinchannel">
+      <UniqueIdentifier>{c1c3e2eb-659c-4556-8fe6-9b3ddf2c4273}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\vivoxclientapi">
+      <UniqueIdentifier>{b1ec0af2-0e61-4743-af4f-d5b4e890c07a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\joinchannel">
+      <UniqueIdentifier>{2ef19ccb-7060-4bc9-bfca-b4284789458f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\vivoxclientapi">
+      <UniqueIdentifier>{34e0f7e1-0852-4b1d-af14-a174bbff6a3a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="joinchannel.h">
+      <Filter>Header Files\joinchannel</Filter>
+    </ClInclude>
+    <ClInclude Include="joinchannelapp.h">
+      <Filter>Header Files\joinchannel</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Header Files\joinchannel</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files\joinchannel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vivoxclientapi\accountname.h">
+      <Filter>Header Files\vivoxclientapi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vivoxclientapi\audiodeviceid.h">
+      <Filter>Header Files\vivoxclientapi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vivoxclientapi\audiodevicepolicy.h">
+      <Filter>Header Files\vivoxclientapi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vivoxclientapi\channeltransmissionpolicy.h">
+      <Filter>Header Files\vivoxclientapi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vivoxclientapi\clientconnection.h">
+      <Filter>Header Files\vivoxclientapi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vivoxclientapi\debugclientapieventhandler.h">
+      <Filter>Header Files\vivoxclientapi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vivoxclientapi\easy.h">
+      <Filter>Header Files\vivoxclientapi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vivoxclientapi\iclientapieventhandler.h">
+      <Filter>Header Files\vivoxclientapi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vivoxclientapi\memallocators.h">
+      <Filter>Header Files\vivoxclientapi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vivoxclientapi\types.h">
+      <Filter>Header Files\vivoxclientapi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vivoxclientapi\uri.h">
+      <Filter>Header Files\vivoxclientapi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vivoxclientapi\util.h">
+      <Filter>Header Files\vivoxclientapi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vivoxclientapi\vivoxclientsdk.h">
+      <Filter>Header Files\vivoxclientapi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vivoxclientapi\windowsinvokeonuithread.h">
+      <Filter>Header Files\vivoxclientapi</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="joinchannel.cpp">
+      <Filter>Source Files\joinchannel</Filter>
+    </ClCompile>
+    <ClCompile Include="joinchannelapp.cpp">
+      <Filter>Source Files\joinchannel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\vivoxclientapi\accountname.cpp">
+      <Filter>Source Files\vivoxclientapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\vivoxclientapi\audiodeviceid.cpp">
+      <Filter>Source Files\vivoxclientapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\vivoxclientapi\clientconnection.cpp">
+      <Filter>Source Files\vivoxclientapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\vivoxclientapi\debugclientapieventhandler.cpp">
+      <Filter>Source Files\vivoxclientapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\vivoxclientapi\easy.cpp">
+      <Filter>Source Files\vivoxclientapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\vivoxclientapi\memallocators.cpp">
+      <Filter>Source Files\vivoxclientapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\vivoxclientapi\uri.cpp">
+      <Filter>Source Files\vivoxclientapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\vivoxclientapi\util.cpp">
+      <Filter>Source Files\vivoxclientapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\vivoxclientapi\vivoxclientsdk.cpp">
+      <Filter>Source Files\vivoxclientapi</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="joinchannel.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="joinchannel.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

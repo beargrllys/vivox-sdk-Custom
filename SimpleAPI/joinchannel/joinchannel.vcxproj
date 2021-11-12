@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{1E804A64-A7EE-4833-85D7-3776BAEEF893}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>joinchannel</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)..\build\$(Configuration)\$(PlatformShortName)</OutDir>
+    <IntDir>$(SolutionDir)..\build\$(Configuration)\$(PlatformShortName)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)..\build\$(Configuration)\$(PlatformShortName)</OutDir>
+    <IntDir>$(SolutionDir)..\build\$(Configuration)\$(PlatformShortName)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)..\build\$(Configuration)\$(PlatformShortName)</OutDir>
+    <IntDir>$(SolutionDir)..\build\$(Configuration)\$(PlatformShortName)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)..\build\$(Configuration)\$(PlatformShortName)</OutDir>
+    <IntDir>$(SolutionDir)..\build\$(Configuration)\$(PlatformShortName)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;USE_ACCESS_TOKENS=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\;$(ProjectDir)..\..\SDK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>false</TreatWarningAsError>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>vivoxsdk.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\SDK\Libraries\$(Configuration)\$(PlatformName);%(AdditionalIncludeDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST "$(ProjectDir)..\..\SDK\Libraries\$(Configuration)\$(PlatformName)\vivoxsdk.dll" (
+    @echo "**** Copying vivoxsdk.dll library to the folder that contains the executable..."
+    copy "$(ProjectDir)..\..\SDK\Libraries\$(Configuration)\$(PlatformName)\vivoxsdk.dll" "$(TARGETDIR)"
+)</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Copy the Root Certificates file and Shared Libraries into the same folder as the executable, and into the local debugger working directory</Message>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;USE_ACCESS_TOKENS=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\;$(ProjectDir)..\..\SDK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>false</TreatWarningAsError>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>vivoxsdk.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\SDK\Libraries\$(Configuration)\$(PlatformName);%(AdditionalIncludeDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST "$(ProjectDir)..\..\SDK\Libraries\$(Configuration)\$(PlatformName)\vivoxsdk.dll" (
+    @echo "**** Copying vivoxsdk.dll library to the folder that contains the executable..."
+    copy "$(ProjectDir)..\..\SDK\Libraries\$(Configuration)\$(PlatformName)\vivoxsdk.dll" "$(TARGETDIR)"
+)</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message> Copy Libraries into the same folder as the executable, and into the local debugger working directory</Message>
+    </PostBuildEvent>
+    <PreLinkEvent>
+      <Command>
+      </Command>
+    </PreLinkEvent>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;USE_ACCESS_TOKENS=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\;$(ProjectDir)..\..\SDK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>false</TreatWarningAsError>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>vivoxsdk.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\SDK\Libraries\$(Configuration)\$(PlatformName);%(AdditionalIncludeDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST "$(ProjectDir)..\..\SDK\Libraries\$(Configuration)\$(PlatformName)\vivoxsdk.dll" (
+    @echo "**** Copying vivoxsdk.dll library to the folder that contains the executable..."
+    copy "$(ProjectDir)..\..\SDK\Libraries\$(Configuration)\$(PlatformName)\vivoxsdk.dll" "$(TARGETDIR)"
+)</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Copy the Root Certificates file and Shared Libraries into the same folder as the executable, and into the local debugger working directory</Message>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;USE_ACCESS_TOKENS=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\;$(ProjectDir)..\..\SDK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>false</TreatWarningAsError>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>vivoxsdk.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\SDK\Libraries\$(Configuration)\$(PlatformName);%(AdditionalIncludeDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST "$(ProjectDir)..\..\SDK\Libraries\$(Configuration)\$(PlatformName)\vivoxsdk.dll" (
+    @echo "**** Copying vivoxsdk.dll library to the folder that contains the executable..."
+    copy "$(ProjectDir)..\..\SDK\Libraries\$(Configuration)\$(PlatformName)\vivoxsdk.dll" "$(TARGETDIR)"
+)</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Copy the Shared Libraries into the same folder as the executable, and into the local debugger working directory</Message>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\vivoxclientapi\accountname.h" />
+    <ClInclude Include="..\vivoxclientapi\audiodeviceid.h" />
+    <ClInclude Include="..\vivoxclientapi\audiodevicepolicy.h" />
+    <ClInclude Include="..\vivoxclientapi\channeltransmissionpolicy.h" />
+    <ClInclude Include="..\vivoxclientapi\clientconnection.h" />
+    <ClInclude Include="..\vivoxclientapi\debugclientapieventhandler.h" />
+    <ClInclude Include="..\vivoxclientapi\easy.h" />
+    <ClInclude Include="..\vivoxclientapi\iclientapieventhandler.h" />
+    <ClInclude Include="..\vivoxclientapi\memallocators.h" />
+    <ClInclude Include="..\vivoxclientapi\types.h" />
+    <ClInclude Include="..\vivoxclientapi\uri.h" />
+    <ClInclude Include="..\vivoxclientapi\util.h" />
+    <ClInclude Include="..\vivoxclientapi\vivoxclientsdk.h" />
+    <ClInclude Include="..\vivoxclientapi\windowsinvokeonuithread.h" />
+    <ClInclude Include="joinchannel.h" />
+    <ClInclude Include="joinchannelapp.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="targetver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\vivoxclientapi\accountname.cpp" />
+    <ClCompile Include="..\vivoxclientapi\audiodeviceid.cpp" />
+    <ClCompile Include="..\vivoxclientapi\clientconnection.cpp" />
+    <ClCompile Include="..\vivoxclientapi\debugclientapieventhandler.cpp" />
+    <ClCompile Include="..\vivoxclientapi\easy.cpp" />
+    <ClCompile Include="..\vivoxclientapi\memallocators.cpp" />
+    <ClCompile Include="..\vivoxclientapi\uri.cpp" />
+    <ClCompile Include="..\vivoxclientapi\util.cpp" />
+    <ClCompile Include="..\vivoxclientapi\vivoxclientsdk.cpp" />
+    <ClCompile Include="joinchannel.cpp" />
+    <ClCompile Include="joinchannelapp.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="joinchannel.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="joinchannel.ico" />
+    <Image Include="small.ico" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

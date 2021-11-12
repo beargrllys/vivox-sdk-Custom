@@ -1,0 +1,29 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(499,5): warning MSB8004: Output 디렉터리가 슬래시로 끝나지 않습니다. Output 디렉터리의 적절한 평가를 허용하는 데 필요하므로 이 빌드 인스턴스에서 슬래시를 추가합니다.
+  accountname.cpp
+C:\Users\js774\Downloads\vivox-sdk-5.15.2.33039.1b9df5af\SimpleAPI\vivoxclientapi\accountname.cpp(43,5): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  audiodeviceid.cpp
+  clientconnection.cpp
+  debugclientapieventhandler.cpp
+C:\Users\js774\Downloads\vivox-sdk-5.15.2.33039.1b9df5af\SimpleAPI\vivoxclientapi\debugclientapieventhandler.cpp(448,185): warning C4100: 'displayName': 참조되지 않은 정식 매개 변수입니다.
+C:\Users\js774\Downloads\vivox-sdk-5.15.2.33039.1b9df5af\SimpleAPI\vivoxclientapi\debugclientapieventhandler.cpp(448,163): warning C4100: 'language': 참조되지 않은 정식 매개 변수입니다.
+C:\Users\js774\Downloads\vivox-sdk-5.15.2.33039.1b9df5af\SimpleAPI\vivoxclientapi\debugclientapieventhandler.cpp(448,121): warning C4100: 'channelUri': 참조되지 않은 정식 매개 변수입니다.
+C:\Users\js774\Downloads\vivox-sdk-5.15.2.33039.1b9df5af\SimpleAPI\vivoxclientapi\debugclientapieventhandler.cpp(448,104): warning C4100: 'from': 참조되지 않은 정식 매개 변수입니다.
+  easy.cpp
+C:\Users\js774\Downloads\vivox-sdk-5.15.2.33039.1b9df5af\SimpleAPI\vivoxclientapi\easy.cpp(36,5): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\js774\Downloads\vivox-sdk-5.15.2.33039.1b9df5af\SimpleAPI\vivoxclientapi\easy.cpp(595,169): warning C4100: 'displayName': 참조되지 않은 정식 매개 변수입니다.
+C:\Users\js774\Downloads\vivox-sdk-5.15.2.33039.1b9df5af\SimpleAPI\vivoxclientapi\easy.cpp(595,147): warning C4100: 'language': 참조되지 않은 정식 매개 변수입니다.
+C:\Users\js774\Downloads\vivox-sdk-5.15.2.33039.1b9df5af\SimpleAPI\vivoxclientapi\easy.cpp(595,105): warning C4100: 'channelUri': 참조되지 않은 정식 매개 변수입니다.
+C:\Users\js774\Downloads\vivox-sdk-5.15.2.33039.1b9df5af\SimpleAPI\vivoxclientapi\easy.cpp(595,85): warning C4100: 'userUri': 참조되지 않은 정식 매개 변수입니다.
+C:\Users\js774\Downloads\vivox-sdk-5.15.2.33039.1b9df5af\SimpleAPI\vivoxclientapi\easy.cpp(595,61): warning C4100: 'accountName': 참조되지 않은 정식 매개 변수입니다.
+  memallocators.cpp
+  uri.cpp
+C:\Users\js774\Downloads\vivox-sdk-5.15.2.33039.1b9df5af\SimpleAPI\vivoxclientapi\uri.cpp(53,9): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  util.cpp
+  vivoxclientsdk.cpp
+  joinchannel.cpp
+  joinchannelapp.cpp
+  코드를 생성하고 있습니다...
+  joinchannel.vcxproj -> C:\Users\js774\Downloads\vivox-sdk-5.15.2.33039.1b9df5af\SimpleAPI\build\Debug\x86\joinchannel.exe
+  Copy the Root Certificates file and Shared Libraries into the same folder as the executable, and into the local debugger working directory
+  "**** Copying vivoxsdk.dll library to the folder that contains the executable..."
+          1개 파일이 복사되었습니다.
