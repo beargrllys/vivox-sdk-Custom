@@ -1,0 +1,11 @@
+SDKSampleApp  --server=https://mt1s.www.vivox.com/api2 --realm=mt1s.vivox.com --issuer=jisang2336-te04-dev --key=chap633 -m
+
+conn
+
+login -u .jisang2336-te04-dev.bob.
+login -u .jisang2336-te04-dev.alliy.
+
+addsession -c sip:confctl-g-jisang2336-te04-dev.CLPA@mt1s.vivox.com
+
+
+addsession -c sip:confctl-g-jisang2336-te04-dev.CLPA@mt1s.vivox.com\n
